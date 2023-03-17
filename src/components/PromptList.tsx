@@ -49,9 +49,10 @@ export default function PromptList(props: {
   return (
     <ul
       ref={containerRef!}
-      class="bg-slate bg-op-15 dark:text-slate text-slate-7 overflow-y-auto rounded-t"
+      class="bg-slate bg-op-15 dark:text-slate text-slate-7 overflow-y-auto"
       style={{
-        "max-height": maxHeight()
+        "max-height": maxHeight(),
+        "color": "#ffffff"
       }}
     >
       <For each={props.prompts}>

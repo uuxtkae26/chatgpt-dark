@@ -212,7 +212,7 @@ export default function (props: {
       setLoading(false)
       setController()
       setCurrentAssistantMessage(
-        String(error).includes("The user aborted a request")
+        String(error).includes("aborted")
           ? ""
           : String(error)
       )
@@ -342,7 +342,8 @@ export default function (props: {
       <div
         id="message-container"
         style={{
-          "background-color": "var(--c-bg)"
+          "background-color": "var(--c-bg)",
+          "margin-bottom": "20px"
         }}
       >
         <For each={messageList()}>
@@ -385,13 +386,13 @@ export default function (props: {
         <Show
           when={!loading()}
           fallback={() => (
-            <div class="h-12 flex items-center justify-center bg-slate bg-op-15 text-slate rounded">
+            <div style="height: 52px;" class="h-12 flex items-center justify-center border-2 border-white bg-slate bg-op-15 text-white">
               <span>AI 正在思考...</span>
               <div
-                class="ml-1em px-2 py-0.5 border border-slate text-slate rounded-md text-sm op-70 cursor-pointer hover:bg-slate/10"
+                class="ml-1em px-2 py-0.5 border text-sm op-70 cursor-pointer hover:bg-white/10"
                 onClick={stopStreamFetch}
               >
-                不需要了
+                停止
               </div>
             </div>
           )}
@@ -402,11 +403,11 @@ export default function (props: {
               select={selectPrompt}
             ></PromptList>
           </Show>
-          <div class="flex items-end">
+          <div class="flex items-end border-2 border-white">
             <textarea
               ref={inputRef!}
               id="input"
-              placeholder="与 ta 对话吧"
+              placeholder="与 AI 对话"
               autocomplete="off"
               value={inputContent()}
               autofocus
@@ -439,35 +440,18 @@ export default function (props: {
               }}
               onInput={handleInput}
               style={{
-                height: height(),
-                "border-bottom-right-radius": 0,
-                "border-top-right-radius": height() === "48px" ? 0 : "0.25rem",
-                "border-top-left-radius":
-                  compatiblePrompt().length === 0 ? "0.25rem" : 0
+                height: height()
               }}
-              class="self-end py-3 resize-none w-full px-3 text-slate-7 dark:text-slate bg-slate bg-op-15 focus:bg-op-20 focus:ring-0 focus:outline-none placeholder:text-slate-400 placeholder:text-slate-400 placeholder:op-40"
-              rounded-l
+              class="self-end py-3 resize-none w-full px-3 rounded-none focus:outline-none text-white bg-black placeholder:text-white placeholder:op-40"
             />
-            <Show when={inputContent()}>
-              <button
-                class="i-carbon:add-filled absolute right-3.5em bottom-3em rotate-45 text-op-20! hover:text-op-80! text-slate-7 dark:text-slate"
-                onClick={() => {
-                  setInputContent("")
-                  inputRef.focus()
-                }}
-              />
-            </Show>
+
             <div
-              class="flex text-slate-7 dark:text-slate bg-slate bg-op-15 text-op-80! hover:text-op-100! h-3em items-center rounded-r"
-              style={{
-                "border-top-right-radius":
-                  compatiblePrompt().length === 0 ? "0.25rem" : 0
-              }}
+              class="flex h-3em items-center rounded-none bg-black"
             >
               <button
                 title="发送"
                 onClick={() => handleButtonClick()}
-                class="i-carbon:send-filled text-5 mx-3"
+                class="i-carbon:send-filled text-5 mx-3 text-white"
               />
             </div>
           </div>

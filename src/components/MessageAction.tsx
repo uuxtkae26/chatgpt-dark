@@ -8,7 +8,7 @@ export default function MessageAction(props: {
   const [copied, setCopied] = createSignal(false)
   return (
     <Show when={!props.hidden}>
-      <div class="flex absolute items-center justify-between md:top-2 md:right-2 top--2 right-0 text-sm text-slate-7 dark:text-slate group-hover:opacity-100 group-focus:opacity-100 opacity-0 bg-slate bg-op-10 rounded">
+      <div class="flex absolute items-center justify-between md:top-2 md:right-2 top--2 right-0 text-sm text-slate-7 dark:text-slate group-hover:opacity-100 group-focus:opacity-100 opacity-0 bg-slate bg-op-10">
         <ActionItem
           label="复制"
           onClick={() => {
@@ -32,7 +32,7 @@ export default function MessageAction(props: {
 function ActionItem(props: { onClick: any; icon: string; label?: string }) {
   return (
     <div
-      class="flex items-center cursor-pointer p-2 hover:bg-slate hover:bg-op-20 rounded text-1.2em"
+      class="flex items-center cursor-pointer p-2 hover:bg-slate hover:bg-op-20 text-1.2em"
       onClick={props.onClick}
     >
       <button class={props.icon} title={props.label} />

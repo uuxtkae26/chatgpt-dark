@@ -5,11 +5,13 @@ import {
   ReconnectInterval
 } from "eventsource-parser"
 import type { ChatMessage } from "~/types"
-import GPT3Tokenizer from "gpt3-tokenizer"
+// import { GPT3Tokenizer } from "gpt3-tokenizer"
 import { getAll } from "@vercel/edge-config"
 import { splitKeys, randomWithWeight, randomKey } from "~/utils"
+import fetch from 'node-fetch';
+import { SocksProxyAgent } from "socks-proxy-agent"
 
-const tokenizer = new GPT3Tokenizer({ type: "gpt3" })
+// const tokenizer = new GPT3Tokenizer({ type: "gpt3" })
 
 export const localKey =
   import.meta.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY || ""
@@ -68,8 +70,9 @@ export const post: APIRoute = async context => {
       return new Response("没有填写 OpenAI API key，或者 key 填写错误。")
 
     const tokens = messages.reduce((acc, cur) => {
-      const tokens = tokenizer.encode(cur.content).bpe.length
-      return acc + tokens
+      // const tokens = tokenizer.encode(cur.content).bpe.length
+      // return acc + tokens
+      return 0
     }, 0)
 
     if (tokens > (Number.isInteger(maxTokens) ? maxTokens : 3072)) {
@@ -82,11 +85,15 @@ export const post: APIRoute = async context => {
 
     const encoder = new TextEncoder()
     const decoder = new TextDecoder()
+    
+    const proxy = process.env.SOCKS_PROXY || 'socks5://127.0.0.1:1080';
+    const agent = new SocksProxyAgent(proxy);
 
     const completion = await fetch(`https://${baseURL}/v1/chat/completions`, {
+      agent: agent,
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${apiKey}`
+        Authorization: `Bearer ${localKey}`
       },
       method: "POST",
       body: JSON.stringify({
@@ -126,12 +133,16 @@ export const post: APIRoute = async context => {
 
     return new Response(stream)
   } catch (e) {
+    console.log("请求失败", e)
     return new Response(String(e).replace(/sk-\w+/g, "sk-xxxxxxxx"))
   }
 }
 
 export async function fetchBilling(key: string) {
+  const proxy = process.env.SOCKS_PROXY || 'socks5://127.0.0.1:1080';
+  const agent = new SocksProxyAgent(proxy);
   return (await fetch(`https://${baseURL}/dashboard/billing/credit_grants`, {
+    agent: agent,
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${key}`

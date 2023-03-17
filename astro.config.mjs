@@ -1,13 +1,11 @@
-import { defineConfig } from "astro/config"
-import vercel from "@astrojs/vercel/edge"
-import unocss from "unocss/astro"
-import {
-  presetUno,
-  presetIcons,
-  presetAttributify,
-  presetTypography
-} from "unocss"
-import solidJs from "@astrojs/solid-js"
+import { defineConfig } from "astro/config";
+import vercel from "@astrojs/vercel/edge";
+import unocss from "unocss/astro";
+import { presetUno, presetIcons, presetAttributify, presetTypography } from "unocss";
+import solidJs from "@astrojs/solid-js";
+import node from '@astrojs/node';
+
+// https://astro.build/config
 
 // https://astro.build/config
 export default defineConfig({
@@ -17,31 +15,25 @@ export default defineConfig({
         output: {
           manualChunks(id) {
             if (id.includes("node_modules")) {
-              const arr = id.toString().split("node_modules/")[1].split("/")
-              if (arr[1].includes("markdown")) return "__markdown"
-              if (arr[1].includes("highlight")) return "__highlight"
-              return "__vendor"
+              const arr = id.toString().split("node_modules/")[1].split("/");
+              if (arr[1].includes("markdown")) return "__markdown";
+              if (arr[1].includes("highlight")) return "__highlight";
+              return "__vendor";
             }
           }
         }
       }
     }
   },
-  integrations: [
-    unocss({
-      presets: [
-        presetAttributify(),
-        presetUno(),
-        presetTypography({
-          cssExtend: {
-            ":not(pre) > code::before,:not(pre) > code::after": ""
-          }
-        }),
-        presetIcons()
-      ]
-    }),
-    solidJs()
-  ],
+  integrations: [unocss({
+    presets: [presetAttributify(), presetUno(), presetTypography({
+      cssExtend: {
+        ":not(pre) > code::before,:not(pre) > code::after": ""
+      }
+    }), presetIcons()]
+  }), solidJs()],
   output: "server",
-  adapter: vercel()
-})
+  adapter: node({
+    mode: "standalone"
+  })
+});

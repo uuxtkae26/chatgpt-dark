@@ -20,7 +20,7 @@ export default function SettingAction(props: {
           <input
             type="password"
             value={props.setting().password}
-            class="max-w-150px ml-1em px-1 text-slate-7 dark:text-slate rounded-sm bg-slate bg-op-15 focus:bg-op-20 focus:ring-0 focus:outline-none"
+            class="max-w-150px ml-1em px-1 text-slate-7 dark:text-slate bg-slate bg-op-15 focus:bg-op-20 focus:ring-0 focus:outline-none"
             onInput={e => {
               props.setSetting({
                 ...props.setting(),
@@ -33,7 +33,7 @@ export default function SettingAction(props: {
           <input
             type="password"
             value={props.setting().openaiAPIKey}
-            class="max-w-150px ml-1em px-1 text-slate-7 dark:text-slate rounded-sm bg-slate bg-op-15 focus:bg-op-20 focus:ring-0 focus:outline-none"
+            class="max-w-150px ml-1em px-1 text-slate-7 dark:text-slate bg-slate bg-op-15 focus:bg-op-20 focus:ring-0 focus:outline-none"
             onInput={e => {
               props.setSetting({
                 ...props.setting(),
@@ -46,7 +46,7 @@ export default function SettingAction(props: {
           <input
             type="text"
             value={props.setting().systemRule}
-            class="text-ellipsis max-w-150px ml-1em px-1 text-slate-7 dark:text-slate rounded-sm bg-slate bg-op-15 focus:bg-op-20 focus:ring-0 focus:outline-none"
+            class="text-ellipsis max-w-150px ml-1em px-1 text-slate-7 dark:text-slate bg-slate bg-op-15 focus:bg-op-20 focus:ring-0 focus:outline-none"
             onInput={e => {
               props.setSetting({
                 ...props.setting(),
@@ -61,7 +61,7 @@ export default function SettingAction(props: {
             min={0}
             max={100}
             value={String(props.setting().openaiAPITemperature)}
-            class="max-w-150px w-full h-2 bg-slate bg-op-15 rounded-lg appearance-none cursor-pointer accent-slate"
+            class="max-w-150px w-full h-2 bg-slate bg-op-15 appearance-none cursor-pointer accent-slate"
             onInput={e => {
               props.setSetting({
                 ...props.setting(),
@@ -110,7 +110,6 @@ export default function SettingAction(props: {
             <div class="w-9 h-5 bg-slate bg-op-15 peer-focus:outline-none peer-focus:ring-0  rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-slate"></div>
           </label>
         </SettingItem>
-        <hr class="mt-2 bg-slate-5 bg-op-15 border-none h-1px"></hr>
       </Show>
       <div class="mt-2 flex items-center justify-between">
         <ActionItem
@@ -121,6 +120,11 @@ export default function SettingAction(props: {
           label="设置"
         />
         <div class="flex">
+          <ActionItem
+            onClick={scrollToTop}
+            icon="i-carbon:arrow-up"
+            label="回到顶部"
+          />
           <ActionItem
             onClick={exportJpg}
             icon="i-carbon:image"
@@ -161,8 +165,8 @@ function SettingItem(props: {
   label: string
 }) {
   return (
-    <div class="flex items-center p-1 justify-between hover:bg-slate hover:bg-op-10 rounded">
-      <div class="flex items-center">
+    <div class="flex items-center p-1 justify-between hover:bg-slate hover:bg-op-10">
+      <div style="color: #ffffff;" class="flex items-center">
         <button class={props.icon} />
         <span ml-1>{props.label}</span>
       </div>
@@ -174,13 +178,20 @@ function SettingItem(props: {
 function ActionItem(props: { onClick: any; icon: string; label?: string }) {
   return (
     <div
-      class="flex items-center cursor-pointer mx-1 p-2 hover:bg-slate hover:bg-op-10 rounded text-1.2em"
+      class="flex items-center cursor-pointer mx-1 p-2 hover:bg-slate hover:bg-op-10 text-1.2em"
       onClick={props.onClick}
     >
-      <button class={props.icon} title={props.label} />
+      <button style="color: #ffffff;" class={props.icon} title={props.label} />
     </div>
   )
 }
+
+function scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    })
+  }
 
 function exportJpg() {
   toJpeg(document.querySelector("#message-container") as HTMLElement, {}).then(
