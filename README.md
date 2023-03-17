@@ -1,6 +1,7 @@
 # ChatGPT-Dark
 
-![](assets/dark.png)
+![](assets/dark1.png)
+![](assets/dark2.png)
 
 > 本项目基于 [chatgpt-vercel](https://github.com/ourongxing/chatgpt-vercel) 开发。
 
