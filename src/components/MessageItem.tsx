@@ -81,7 +81,7 @@ export default (props: Props) => {
         }`}
       ></div>
       <div
-        class="message prose prose-slate dark:prose-invert text-white break-words overflow-hidden"
+        class="message prose prose-white dark:prose-invert text-white break-words overflow-hidden"
         innerHTML={md.render(props.message)}
       />
       <MessageAction
