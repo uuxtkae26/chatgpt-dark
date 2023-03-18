@@ -5,13 +5,13 @@ import {
   ReconnectInterval
 } from "eventsource-parser"
 import type { ChatMessage } from "~/types"
-// import { GPT3Tokenizer } from "gpt3-tokenizer"
+import GPT3Tokenizer from 'gpt3-tokenizer';
 import { getAll } from "@vercel/edge-config"
 import { splitKeys, randomWithWeight, randomKey } from "~/utils"
 import fetch from 'node-fetch';
 import { SocksProxyAgent } from "socks-proxy-agent"
 
-// const tokenizer = new GPT3Tokenizer({ type: "gpt3" })
+const tokenizer = new GPT3Tokenizer.default({ type: 'gpt3' });
 
 export const localKey =
   import.meta.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY || ""
@@ -70,9 +70,9 @@ export const post: APIRoute = async context => {
       return new Response("没有填写 OpenAI API key，或者 key 填写错误。")
 
     const tokens = messages.reduce((acc, cur) => {
-      // const tokens = tokenizer.encode(cur.content).bpe.length
-      // return acc + tokens
-      return 0
+      const tokens = tokenizer.encode(cur.content).bpe.length
+      return acc + tokens
+      // return 0
     }, 0)
 
     if (tokens > (Number.isInteger(maxTokens) ? maxTokens : 3072)) {
