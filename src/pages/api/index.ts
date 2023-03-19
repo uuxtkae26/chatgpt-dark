@@ -87,9 +87,11 @@ export const post: APIRoute = async context => {
     const decoder = new TextDecoder()
     
     const proxy = import.meta.env.SOCKS_PROXY || process.env.SOCKS_PROXY
-    // console.log("proxy:",proxy)
-    if (proxy && !proxy?.length && proxy.length > 4) {
-      const completion = await fetch(`https://${baseURL}/v1/chat/completions`, {
+    
+    var completion
+    
+    if (proxy && proxy?.length && proxy.length > 4) {
+      completion = await fetch(`https://${baseURL}/v1/chat/completions`, {
         agent: new SocksProxyAgent(proxy),
         headers: {
           "Content-Type": "application/json",
@@ -105,7 +107,7 @@ export const post: APIRoute = async context => {
         })
       })
     } else {
-      const completion = await fetch(`https://${baseURL}/v1/chat/completions`, {
+      completion = await fetch(`https://${baseURL}/v1/chat/completions`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localKey}`
@@ -156,7 +158,7 @@ export const post: APIRoute = async context => {
 
 export async function fetchBilling(key: string) {
    const proxy = import.meta.env.SOCKS_PROXY || process.env.SOCKS_PROXY
-    if (proxy && !proxy?.length && proxy.length > 4) {
+    if (proxy && proxy?.length && proxy.length > 4) {
       return (await fetch(`https://${baseURL}/dashboard/billing/credit_grants`, {
         agent: new SocksProxyAgent(proxy),
         headers: {
