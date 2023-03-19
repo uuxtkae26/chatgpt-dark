@@ -8,7 +8,7 @@
 
 
 在本地开发和调试:
-
+0. `git clone https://github.com/CODEisArrrt/chatgpt-dark.git`
 1. 升级到 `node18` (我的版本是v18.15.0)
 2. 配置好环境变量 SOCKS_PROXY 需要通过代理访问API 默认值是 `socks5://127.0.0.1:1080`
 3. `pnpm i` 安装依赖。
