@@ -23,7 +23,7 @@
 
 | 环境变量                           | 说明                                                         | 默认值                                                       |
 | ---------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| `OPENAI_API_KEY`                   | OpenAI API Key，可以填写多个，用 `|` 或者 `换行` 隔开，随机调用。最好是多填几个，API 有并发上的限制。如果用户不填自己的 key，那么就会使用你的 key。 | 无                                                           |
+| `OPENAI_API_KEY`                   | OpenAI API Key | 无                                                           |
 | `DEFAULT_MESSAGE`                  | 默认提示信息                                                 | - 由 [OpenAI API](https://platform.openai.com/docs/guides/chat) 提供支持。<br/>- 由 [@CODEisArt](https://github.com/CODEisArrrt) 基于 [chatgpt-vercel](https://github.com/ourongxing/chatgpt-vercel) 开发，查看 [源码](https://github.com/CODEisArrrt/chatgpt-dark)，欢迎自部署。<br/>- [[Shift]] + [[Enter]] 换行，开头输入 [[/]] 或者 [[空格]] 搜索 Prompt 预设，点击输入框滚动到底部。 <br/>- 为了节省token消耗，默认不开启连续对话功能。<br/>- 当前没有给网站设置密码，请勿滥用。|
 | `DEFAULT_SETTING`                  | 默认设置                                                     | {<br/>  "continuousDialogue": true,<br/>  "archiveSession": false,<br/>  "openaiAPIKey": "",<br />  "openaiAPITemperature": 60,<br/>  "systemRule": ""<br/>  "password": ""<br />} |
 | `RESET_CONTINUOUS_DIALOGUE_OPTION` | 刷新时重置 `开启连续对话` 选项，在分享给很多人用的时候可以有效避免大量消耗。 | false                                                        |
