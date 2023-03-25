@@ -237,7 +237,8 @@ export default function (props: {
           : [message],
         key: setting().openaiAPIKey || undefined,
         temperature: setting().openaiAPITemperature / 100,
-        password: setting().password
+        password: setting().password,
+        model: setting().model
       }),
       signal: controller.signal
     })
