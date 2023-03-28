@@ -38,7 +38,7 @@ export const post: APIRoute = async context => {
       key = localKey,
       temperature = 0.6,
       password,
-      model
+      model,
       stop = undefined
     } = body as {
       messages?: ChatMessage[]
