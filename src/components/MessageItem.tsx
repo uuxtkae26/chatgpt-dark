@@ -27,6 +27,11 @@ export default (props: Props) => {
     user: "",
     assistant: "bg-white"
   }
+  const iconClass = {
+    system: "",
+    user: "user",
+    assistant: "assistant"
+  }
 
   const md = MarkdownIt({
     linkify: true,
@@ -76,10 +81,11 @@ export default (props: Props) => {
       }}
     >
       <div
-        class={`shrink-0 w-7 h-7 mt-4 rounded-full ${
-          roleClass[props.role]
+        class={`shrink-0 w-7 h-7 mt-4 rounded-full
         }`}
-      ></div>
+      >
+        <img src={`../assets/${iconClass[props.role]}.png`}></img>
+      </div>
       <div
         class="message prose prose-white text-white break-words overflow-hidden"
         innerHTML={md.render(props.message)}
