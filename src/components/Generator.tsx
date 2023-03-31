@@ -408,7 +408,7 @@ export default function (props: {
             <textarea
               ref={inputRef!}
               id="input"
-              placeholder="与 AI 对话"
+              placeholder="输入你想提问的内容"
               autocomplete="off"
               value={inputContent()}
               autofocus

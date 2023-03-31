@@ -7,3 +7,4 @@ yarn-error.log
 src/temp.ts
 dist
 sftp-config.json
+.history
