@@ -11,6 +11,7 @@ import { splitKeys, randomWithWeight, randomKey } from "~/utils"
 import fetch from 'node-fetch'
 import { SocksProxyAgent } from "socks-proxy-agent"
 
+// const tokenizer = new GPT3Tokenizer.default({ type: 'gpt3' }) //如果这里报错是因为你node版本和我不一样 这句话改成 const tokenizer = new GPT3Tokenizer({ type: 'gpt3' })
 const tokenizer = new GPT3Tokenizer({ type: 'gpt3' }) //如果这里报错是因为你node版本和我不一样 这句话改成 const tokenizer = new GPT3Tokenizer({ type: 'gpt3' })
 
 export const localKey =
